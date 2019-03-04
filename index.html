@@ -1,0 +1,1038 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="The lightning-fast ASGI server.">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Uvicorn</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      
+      
+    
+    
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#introduction" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="." title="Uvicorn" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Uvicorn
+            </span>
+            <span class="md-header-nav__topic">
+              Introduction
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/encode/uvicorn" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    encode/uvicorn
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="." title="Uvicorn" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Uvicorn
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/encode/uvicorn" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    encode/uvicorn
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Introduction
+      </label>
+    
+    <a href="." title="Introduction" class="md-nav__link md-nav__link--active">
+      Introduction
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" title="Quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" title="Command line options" class="md-nav__link">
+    Command line options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-programmatically" title="Running programmatically" class="md-nav__link">
+    Running programmatically
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-with-gunicorn" title="Running with Gunicorn" class="md-nav__link">
+    Running with Gunicorn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-asgi-interface" title="The ASGI interface" class="md-nav__link">
+    The ASGI interface
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-scope" title="HTTP Scope" class="md-nav__link">
+    HTTP Scope
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-messages" title="HTTP Messages" class="md-nav__link">
+    HTTP Messages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requests-responses" title="Requests &amp; responses" class="md-nav__link">
+    Requests &amp; responses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-request-body" title="Reading the request body" class="md-nav__link">
+    Reading the request body
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming-responses" title="Streaming responses" class="md-nav__link">
+    Streaming responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-asgi-servers" title="Alternative ASGI servers" class="md-nav__link">
+    Alternative ASGI servers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#daphne" title="Daphne" class="md-nav__link">
+    Daphne
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypercorn" title="Hypercorn" class="md-nav__link">
+    Hypercorn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asgi-frameworks" title="ASGI frameworks" class="md-nav__link">
+    ASGI frameworks
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starlette" title="Starlette" class="md-nav__link">
+    Starlette
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django-channels" title="Django Channels" class="md-nav__link">
+    Django Channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quart" title="Quart" class="md-nav__link">
+    Quart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastapi" title="FastAPI" class="md-nav__link">
+    FastAPI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="deployment/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="server-behavior/" title="Server Behavior" class="md-nav__link">
+      Server Behavior
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" title="Quickstart" class="md-nav__link">
+    Quickstart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-line-options" title="Command line options" class="md-nav__link">
+    Command line options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-programmatically" title="Running programmatically" class="md-nav__link">
+    Running programmatically
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-with-gunicorn" title="Running with Gunicorn" class="md-nav__link">
+    Running with Gunicorn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-asgi-interface" title="The ASGI interface" class="md-nav__link">
+    The ASGI interface
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-scope" title="HTTP Scope" class="md-nav__link">
+    HTTP Scope
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-messages" title="HTTP Messages" class="md-nav__link">
+    HTTP Messages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requests-responses" title="Requests &amp; responses" class="md-nav__link">
+    Requests &amp; responses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-request-body" title="Reading the request body" class="md-nav__link">
+    Reading the request body
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming-responses" title="Streaming responses" class="md-nav__link">
+    Streaming responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-asgi-servers" title="Alternative ASGI servers" class="md-nav__link">
+    Alternative ASGI servers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#daphne" title="Daphne" class="md-nav__link">
+    Daphne
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypercorn" title="Hypercorn" class="md-nav__link">
+    Hypercorn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asgi-frameworks" title="ASGI frameworks" class="md-nav__link">
+    ASGI frameworks
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starlette" title="Starlette" class="md-nav__link">
+    Starlette
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django-channels" title="Django Channels" class="md-nav__link">
+    Django Channels
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quart" title="Quart" class="md-nav__link">
+    Quart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastapi" title="FastAPI" class="md-nav__link">
+    FastAPI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <p align="center">
+  <img width="320" height="320" src="https://raw.githubusercontent.com/tomchristie/uvicorn/master/docs/uvicorn.png" alt='uvicorn'>
+</p>
+
+<p align="center">
+<em>The lightning-fast ASGI server.</em>
+</p>
+
+<hr />
+<h1 id="introduction">Introduction</h1>
+<p>Uvicorn is a lightning-fast ASGI server, built on <a href="https://github.com/MagicStack/uvloop">uvloop</a> and <a href="https://github.com/MagicStack/httptools">httptools</a>.</p>
+<p>Until recently Python has lacked a minimal low-level server/application interface for
+asyncio frameworks. The <a href="https://asgi.readthedocs.io/en/latest/">ASGI specification</a> fills this gap, and means we're now able to start building
+a common set of tooling usable across all asyncio frameworks.</p>
+<p>ASGI should help enable an ecosystem of Python web frameworks that are highly competitive against Node
+and Go in terms of achieving high throughput in IO-bound contexts. It also provides support for HTTP/2 and
+WebSockets, which cannot be handled by WSGI.</p>
+<p>Uvicorn currently supports HTTP/1.1 and WebSockets. Support for HTTP/2 is planned.</p>
+<hr />
+<h2 id="quickstart">Quickstart</h2>
+<p>Requirements: Python 3.5, 3.6, 3.7</p>
+<p>Install using <code>pip</code>:</p>
+<div class="codehilite"><pre><span></span>$ pip install uvicorn
+</pre></div>
+
+
+<p>Create an application, in <code>app.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">scope</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">})</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">,</span>
+        <span class="p">})</span>
+</pre></div>
+
+
+<p>Run the server:</p>
+<div class="codehilite"><pre><span></span>$ uvicorn app:App
+</pre></div>
+
+
+<hr />
+<h2 id="usage">Usage</h2>
+<p>The uvicorn command line tool is the easiest way to run your application...</p>
+<h3 id="command-line-options">Command line options</h3>
+<div class="codehilite"><pre><span></span>$ uvicorn --help
+Usage: uvicorn [OPTIONS] APP
+
+Options:
+  --host TEXT                     Bind socket to this host.  [default:
+                                  127.0.0.1]
+  --port INTEGER                  Bind socket to this port.  [default: 8000]
+  --uds TEXT                      Bind to a UNIX domain socket.
+  --fd INTEGER                    Bind to socket from this file descriptor.
+  --reload                        Enable auto-reload.
+  --reload-dir TEXT               Set reload directories explicitly, instead
+                                  of using &#39;sys.path&#39;.
+  --workers INTEGER               Number of worker processes. Not valid with
+                                  --reload.
+  --loop [auto|asyncio|uvloop]    Event loop implementation.  [default: auto]
+  --http [auto|h11|httptools]     HTTP protocol implementation.  [default:
+                                  auto]
+  --ws [none|auto|websockets|wsproto]
+                                  WebSocket protocol implementation.
+                                  [default: auto]
+  --lifespan [auto|on|off]        Lifespan implementation.  [default: auto]
+  --wsgi                          Use WSGI as the application interface,
+                                  instead of ASGI.
+  --log-level [critical|error|warning|info|debug]
+                                  Log level.  [default: info]
+  --no-access-log                 Disable access log.
+  --proxy-headers                 Use X-Forwarded-Proto, X-Forwarded-For,
+                                  X-Forwarded-Port to populate remote address
+                                  info.
+  --root-path TEXT                Set the ASGI &#39;root_path&#39; for applications
+                                  submounted below a given URL path.
+  --limit-concurrency INTEGER     Maximum number of concurrent connections or
+                                  tasks to allow, before issuing HTTP 503
+                                  responses.
+  --limit-max-requests INTEGER    Maximum number of requests to service before
+                                  terminating the process.
+  --timeout-keep-alive INTEGER    Close Keep-Alive connections if no new data
+                                  is received within this timeout.  [default:
+                                  5]
+  --ssl-keyfile TEXT              SSL key file
+  --ssl-certfile TEXT             SSL certificate file
+  --ssl-version INTEGER           SSL version to use (see stdlib ssl module&#39;s)
+                                  [default: 2]
+  --ssl-cert-reqs INTEGER         Whether client certificate is required (see
+                                  stdlib ssl module&#39;s)  [default: 0]
+  --ssl-ca-certs TEXT             CA certificates file
+  --ssl-ciphers TEXT              Ciphers to use (see stdlib ssl module&#39;s)
+                                  [default: TLSv1]
+  --help                          Show this message and exit.
+</pre></div>
+
+
+<p>For more information, see the <a href="settings/">settings documentation</a>.</p>
+<h3 id="running-programmatically">Running programmatically</h3>
+<p>To run uvicorn directly from your application...</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">uvicorn</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">App</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="running-with-gunicorn">Running with Gunicorn</h3>
+<p><a href="http://gunicorn.org/">Gunicorn</a> is a mature, fully featured server and process manager.</p>
+<p>Uvicorn includes a Gunicorn worker class allowing you to run ASGI applications,
+with all of Uvicorn's performance benefits, while also giving you Gunicorn's
+fully-featured process management.</p>
+<p>This allows you to increase or decrease the number of worker processes on the
+fly, restart worker processes gracefully, or perform server upgrades without downtime.</p>
+<p>For production deployments we recommend using gunicorn with the uvicorn worker class.</p>
+<div class="codehilite"><pre><span></span>gunicorn app:App -w 4 -k uvicorn.workers.UvicornWorker
+</pre></div>
+
+
+<p>For a <a href="https://pypy.org/">PyPy</a> compatible configuration use <code>uvicorn.workers.UvicornH11Worker</code>.</p>
+<p>For more information, see the <a href="deployment/">deployment documentation</a>.</p>
+<h2 id="the-asgi-interface">The ASGI interface</h2>
+<p>Uvicorn uses the <a href="https://asgi.readthedocs.io/en/latest/">ASGI specification</a> for interacting with an application.</p>
+<p>The application should expose a callable which takes one argument, <code>scope</code>.
+This callable is used to create a new instance of the application for each incoming connection.
+It must return a coroutine which the server can then call into.</p>
+<p>The application instance coroutine takes two arguments, <code>(receive, send)</code>,
+which are the channels by which messages are sent between the web server and client application.</p>
+<p>One style of implementation is to use a class with an <code>__init__()</code> method to handle
+application instantiation, and a <code>__call__()</code> coroutine to provide the application implementation.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="o">...</span>
+</pre></div>
+
+
+<p>The content of the <code>scope</code> argument, and the messages expected by <code>receive</code> and <code>send</code> depend on
+the protocol being used.</p>
+<p>The format for HTTP messages is described in the <a href="https://asgi.readthedocs.io/en/latest/specs/www.html">ASGI HTTP Message format</a>.</p>
+<h3 id="http-scope">HTTP Scope</h3>
+<p>An incoming HTTP request might instantiate an application with the following <code>scope</code>:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.request&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;scheme&#39;</span><span class="p">:</span> <span class="s1">&#39;http&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;root_path&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;server&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">),</span>
+    <span class="s1">&#39;http_version&#39;</span><span class="p">:</span> <span class="s1">&#39;1.1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;host&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;127.0.0.1:8000&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;user-agent&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;curl/7.51.0&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;accept&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;*/*&#39;</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="http-messages">HTTP Messages</h3>
+<p>The instance coroutine communicates back to the server by sending messages to the <code>send</code> coroutine.</p>
+<div class="codehilite"><pre><span></span><span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.request.start&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+    <span class="p">]</span>
+<span class="p">})</span>
+<span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.request.body&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<h3 id="requests-responses">Requests &amp; responses</h3>
+<p>Here's an example that displays the method and path used in the incoming request:</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">EchoMethodAndPath</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="s1">&#39;Received </span><span class="si">%s</span><span class="s1"> request to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">})</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">body</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+        <span class="p">})</span>
+</pre></div>
+
+
+<h3 id="reading-the-request-body">Reading the request body</h3>
+<p>You can stream the request body without blocking the asyncio task pool,
+by fetching messages from the <code>receive</code> coroutine.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">EchoBody</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="nf">read_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read and return the entire body from an incoming ASGI message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+        <span class="n">more_body</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">while</span> <span class="n">more_body</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">await</span> <span class="n">receive</span><span class="p">()</span>
+            <span class="n">body</span> <span class="o">+=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">more_body</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;more_body&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">body</span>
+
+
+    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_body</span><span class="p">(</span><span class="n">receive</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">})</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">body</span><span class="p">,</span>
+        <span class="p">})</span>
+</pre></div>
+
+
+<h3 id="streaming-responses">Streaming responses</h3>
+<p>You can stream responses by sending multiple <code>http.response.body</code> messages to
+the <code>send</code> coroutine.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">StreamResponse</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+
+    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_body</span><span class="p">(</span><span class="n">receive</span><span class="p">)</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">})</span>
+        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;world!&#39;</span><span class="p">]</span>
+            <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">,</span>
+                <span class="s1">&#39;more_body&#39;</span><span class="p">:</span> <span class="bp">True</span>
+            <span class="p">})</span>
+        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="p">})</span>
+</pre></div>
+
+
+<hr />
+<h2 id="alternative-asgi-servers">Alternative ASGI servers</h2>
+<h3 id="daphne">Daphne</h3>
+<p>The first ASGI server implementation, originally developed to power Django Channels,
+is <a href="https://github.com/django/daphne">the Daphne webserver</a>.</p>
+<p>It is run widely in production, and supports HTTP/1.1, HTTP/2, and WebSockets.</p>
+<p>Any of the example applications given here can equally well be run using <code>daphne</code> instead.</p>
+<div class="codehilite"><pre><span></span>$ pip install daphne
+$ daphne app:App
+</pre></div>
+
+
+<h3 id="hypercorn">Hypercorn</h3>
+<p><a href="https://gitlab.com/pgjones/hypercorn">Hypercorn</a> was initially part of the Quart web framework, before
+being separated out into a standalone ASGI server.</p>
+<p>Hypercorn supports HTTP/1.1, HTTP/2, and WebSockets.</p>
+<div class="codehilite"><pre><span></span>$ pip install hypercorn
+$ hypercorn app:App
+</pre></div>
+
+
+<hr />
+<h2 id="asgi-frameworks">ASGI frameworks</h2>
+<p>You can use Uvicorn, Daphne, or Hypercorn to run any ASGI framework.</p>
+<p>For small services you can also write ASGI applications directly.</p>
+<h3 id="starlette">Starlette</h3>
+<p><a href="https://github.com/encode/starlette">Starlette</a> is a lightweight ASGI framework/toolkit.</p>
+<p>It is ideal for building high performance asyncio services, and supports both HTTP and WebSockets.</p>
+<h3 id="django-channels">Django Channels</h3>
+<p>The ASGI specification was originally designed for use with <a href="https://channels.readthedocs.io/en/latest/">Django Channels</a>.</p>
+<p>Channels is a little different to other ASGI frameworks in that it provides
+an asynchronous frontend onto a threaded-framework backend. It allows Django
+to support WebSockets, background tasks, and long-running connections,
+with application code still running in a standard threaded context.</p>
+<h3 id="quart">Quart</h3>
+<p><a href="https://pgjones.gitlab.io/quart/">Quart</a> is a Flask-like ASGI web framework.</p>
+<h3 id="fastapi">FastAPI</h3>
+<p><a href="https://github.com/tiangolo/fastapi"><strong>FastAPI</strong></a> is an API framework based on <strong>Starlette</strong> and <strong>Pydantic</strong>, heavily inspired by previous server versions of <strong>APIStar</strong>.</p>
+<p>You write your API function parameters with Python 3.6+ type declarations and get automatic data conversion, data validation, OpenAPI schemas (with JSON Schemas) and interactive API documentation UIs.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+        
+          <a href="settings/" title="Settings" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Settings
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+    
+  </body>
+</html>

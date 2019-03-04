@@ -1,0 +1,775 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="The lightning-fast ASGI server.">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Deployment - Uvicorn</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.982221ab.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#deployment" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Uvicorn" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Uvicorn
+            </span>
+            <span class="md-header-nav__topic">
+              Deployment
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/encode/uvicorn" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    encode/uvicorn
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Uvicorn" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Uvicorn
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/encode/uvicorn" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    encode/uvicorn
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Deployment
+      </label>
+    
+    <a href="./" title="Deployment" class="md-nav__link md-nav__link--active">
+      Deployment
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-from-the-command-line" title="Running from the command line" class="md-nav__link">
+    Running from the command line
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-programmatically" title="Running programmatically" class="md-nav__link">
+    Running programmatically
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-process-manager" title="Using a process manager" class="md-nav__link">
+    Using a process manager
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn" title="Gunicorn" class="md-nav__link">
+    Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor" title="Supervisor" class="md-nav__link">
+    Supervisor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circus" title="Circus" class="md-nav__link">
+    Circus
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-behind-nginx" title="Running behind Nginx" class="md-nav__link">
+    Running behind Nginx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-behind-a-cdn" title="Running behind a CDN" class="md-nav__link">
+    Running behind a CDN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-with-https" title="Running with HTTPS" class="md-nav__link">
+    Running with HTTPS
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gunicorn-worker" title="Running gunicorn worker" class="md-nav__link">
+    Running gunicorn worker
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../server-behavior/" title="Server Behavior" class="md-nav__link">
+      Server Behavior
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-from-the-command-line" title="Running from the command line" class="md-nav__link">
+    Running from the command line
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-programmatically" title="Running programmatically" class="md-nav__link">
+    Running programmatically
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-process-manager" title="Using a process manager" class="md-nav__link">
+    Using a process manager
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn" title="Gunicorn" class="md-nav__link">
+    Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supervisor" title="Supervisor" class="md-nav__link">
+    Supervisor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#circus" title="Circus" class="md-nav__link">
+    Circus
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-behind-nginx" title="Running behind Nginx" class="md-nav__link">
+    Running behind Nginx
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-behind-a-cdn" title="Running behind a CDN" class="md-nav__link">
+    Running behind a CDN
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-with-https" title="Running with HTTPS" class="md-nav__link">
+    Running with HTTPS
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gunicorn-worker" title="Running gunicorn worker" class="md-nav__link">
+    Running gunicorn worker
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="deployment">Deployment</h1>
+<p>Server deployment is a complex area, that will depend on what kind of service you're deploying Uvicorn onto.</p>
+<p>As a general rule, you probably want to:</p>
+<ul>
+<li>Run <code>uvicorn --reload</code> from the command line for local development.</li>
+<li>Run <code>gunicorn -k uvicorn.workers.UvicornWorker</code> for production.</li>
+<li>Additionally run behind Nginx for self-hosted deployments.</li>
+<li>Finally, run everything behind a CDN for caching support, and serious DDOS protection.</li>
+</ul>
+<h2 id="running-from-the-command-line">Running from the command line</h2>
+<p>Typically you'll run <code>uvicorn</code> from the command line.</p>
+<div class="codehilite"><pre><span></span>$ uvicorn app:App --reload --port <span class="m">5000</span>
+</pre></div>
+
+
+<p>The ASGI application should be specified in the form <code>path.to.module:instance.path</code>.</p>
+<p>When running locally, use <code>--reload</code> to turn on auto-reloading.</p>
+<p>To see the complete set of available options, use <code>uvicorn --help</code>:</p>
+<div class="codehilite"><pre><span></span>$ uvicorn --help
+Usage: uvicorn [OPTIONS] APP
+
+Options:
+  --host TEXT                     Bind socket to this host.  [default:
+                                  127.0.0.1]
+  --port INTEGER                  Bind socket to this port.  [default: 8000]
+  --uds TEXT                      Bind to a UNIX domain socket.
+  --fd INTEGER                    Bind to socket from this file descriptor.
+  --reload                        Enable auto-reload.
+  --reload-dir TEXT               Set reload directories explicitly, instead
+                                  of using &#39;sys.path&#39;.
+  --workers INTEGER               Number of worker processes. Not valid with
+                                  --reload.
+  --loop [auto|asyncio|uvloop]    Event loop implementation.  [default: auto]
+  --http [auto|h11|httptools]     HTTP protocol implementation.  [default:
+                                  auto]
+  --ws [none|auto|websockets|wsproto]
+                                  WebSocket protocol implementation.
+                                  [default: auto]
+  --lifespan [auto|on|off]        Lifespan implementation.  [default: auto]
+  --wsgi                          Use WSGI as the application interface,
+                                  instead of ASGI.
+  --log-level [critical|error|warning|info|debug]
+                                  Log level.  [default: info]
+  --no-access-log                 Disable access log.
+  --proxy-headers                 Use X-Forwarded-Proto, X-Forwarded-For,
+                                  X-Forwarded-Port to populate remote address
+                                  info.
+  --root-path TEXT                Set the ASGI &#39;root_path&#39; for applications
+                                  submounted below a given URL path.
+  --limit-concurrency INTEGER     Maximum number of concurrent connections or
+                                  tasks to allow, before issuing HTTP 503
+                                  responses.
+  --limit-max-requests INTEGER    Maximum number of requests to service before
+                                  terminating the process.
+  --timeout-keep-alive INTEGER    Close Keep-Alive connections if no new data
+                                  is received within this timeout.  [default:
+                                  5]
+  --ssl-keyfile TEXT              SSL key file
+  --ssl-certfile TEXT             SSL certificate file
+  --ssl-version INTEGER           SSL version to use (see stdlib ssl module&#39;s)
+                                  [default: 2]
+  --ssl-cert-reqs INTEGER         Whether client certificate is required (see
+                                  stdlib ssl module&#39;s)  [default: 0]
+  --ssl-ca-certs TEXT             CA certificates file
+  --ssl-ciphers TEXT              Ciphers to use (see stdlib ssl module&#39;s)
+                                  [default: TLSv1]
+  --help                          Show this message and exit.
+</pre></div>
+
+
+<p>See the <a href="../settings/">settings documentation</a> for more details on the supported options for running uvicorn.</p>
+<h2 id="running-programmatically">Running programmatically</h2>
+<p>To run directly from within a Python program, you should use <code>uvicorn.run(app, **config)</code>. For example:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">uvicorn</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">App</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="nb">reload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The set of configuration options is the same as for the command line tool.</p>
+<h2 id="using-a-process-manager">Using a process manager</h2>
+<p>Running Uvicorn using a process manager ensures that you can run multiple processes in a resilient manner, and allows you to perform server upgrades without dropping requests.</p>
+<p>A process manager will handle the socket setup, start-up multiple server processes, monitor process aliveness, and listen for signals to provide for processes restarts, shutdowns, or dialing up and down the number of running processes.</p>
+<p>Uvicorn provides a lightweight way to run multiple worker processes, for example <code>--workers 4</code>, but does not provide any process monitoring.</p>
+<h3 id="gunicorn">Gunicorn</h3>
+<p>Gunicorn is probably the simplest way to run and manage Uvicorn in a production setting. Uvicorn includes a gunicorn worker class that means you can get set up with very little configuration.</p>
+<p>The following will start Gunicorn with four worker processes:</p>
+<p><code>gunicorn -w 4 -k uvicorn.workers.UvicornWorker</code></p>
+<p>The <code>UvicornWorker</code> implementation uses the <code>uvloop</code> and <code>httptools</code> implementations. To run under PyPy you'll want to use pure-python implementation instead. You can do this by using the <code>UvicornH11Worker</code> class.</p>
+<p><code>gunicorn -w 4 -k uvicorn.workers.UvicornH11Worker</code></p>
+<p>Gunicorn provides a different set of configuration options to Uvicorn, so  some options such as <code>--limit-concurrency</code> are not yet supported when running with Gunicorn.</p>
+<h3 id="supervisor">Supervisor</h3>
+<p>To use <code>supervisor</code> as a process manager you should either:</p>
+<ul>
+<li>Hand over the socket to uvicorn using its file descriptor, which supervisor always makes available as <code>0</code>, and which must be set in the <code>fcgi-program</code> section.</li>
+<li>Or use a UNIX domain socket for each <code>uvicorn</code> process.</li>
+</ul>
+<p>A simple supervisor configuration might look something like this:</p>
+<p><strong>supervisord.conf</strong>:</p>
+<div class="codehilite"><pre><span></span><span class="k">[supervisord]</span>
+
+<span class="k">[fcgi-program:uvicorn]</span>
+<span class="na">socket</span><span class="o">=</span><span class="s">tcp://localhost:8000</span>
+<span class="na">command</span><span class="o">=</span><span class="s">venv/bin/uvicorn --fd 0 example:App</span>
+<span class="na">numprocs</span><span class="o">=</span><span class="s">4</span>
+<span class="na">process_name</span><span class="o">=</span><span class="s">uvicorn-%(process_num)d</span>
+<span class="na">stdout_logfile</span><span class="o">=</span><span class="s">/dev/stdout</span>
+<span class="na">stdout_logfile_maxbytes</span><span class="o">=</span><span class="s">0</span>
+</pre></div>
+
+
+<p>Then run with <code>supervisord -n</code>.</p>
+<h3 id="circus">Circus</h3>
+<p>To use <code>circus</code> as a process manager, you should either:</p>
+<ul>
+<li>Hand over the socket to uvicorn using its file descriptor, which circus makes available as <code>$(circus.sockets.web)</code>.</li>
+<li>Or use a UNIX domain socket for each <code>uvicorn</code> process.</li>
+</ul>
+<p>A simple circus configuration might look something like this:</p>
+<p><strong>circus.ini</strong>:</p>
+<div class="codehilite"><pre><span></span><span class="k">[watcher:web]</span>
+<span class="na">cmd</span> <span class="o">=</span> <span class="s">venv/bin/uvicorn --fd $(circus.sockets.web) example:App</span>
+<span class="na">use_sockets</span> <span class="o">=</span> <span class="s">True</span>
+<span class="na">numprocesses</span> <span class="o">=</span> <span class="s">4</span>
+
+<span class="k">[socket:web]</span>
+<span class="na">host</span> <span class="o">=</span> <span class="s">0.0.0.0</span>
+<span class="na">port</span> <span class="o">=</span> <span class="s">8000</span>
+</pre></div>
+
+
+<p>Then run <code>circusd circus.ini</code>.</p>
+<h2 id="running-behind-nginx">Running behind Nginx</h2>
+<p>Using Nginx as a proxy in front of your Uvicorn processes may not be neccessary, but is recommended for additional resiliance. Nginx can deal with serving your static media and buffering slow requests, leaving your application servers free from load as much as possible.</p>
+<p>In managed environments such as <code>Heroku</code>, you wont typically need to configure Nginx, as your server processes will already be running behind load balancing proxies.</p>
+<p>The recommended configuration for proxying from Nginx is to use a UNIX domain socket between Nginx and whatever the process manager that is being used to run Uvicorn.</p>
+<p>When fronting the application with a proxy server you want to make sure that the proxy sets headers to ensure that application can properly determine the client address of the incoming connection, and if the connection was over <code>http</code> or <code>https</code>.</p>
+<p>You should ensure that the <code>X-Forwarded-For</code> and <code>X-Forwarded-Proto</code> headers are set by the proxy, and that Uvicorn is run using the <code>--proxy-headers</code> setting. This ensure that the ASGI scope includes correct <code>client</code> and <code>scheme</code> information.</p>
+<p>Here's how a simple Nginx configuration might look. This example includes setting proxy headers, and using a UNIX domain socket to communicate with the application server.</p>
+<div class="codehilite"><pre><span></span>http {
+  server {
+    listen 80;
+    client_max_body_size 4G;
+
+    server_name example.com;
+
+    location / {
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_redirect off;
+      proxy_buffering off;
+      proxy_pass http://uvicorn;
+    }
+
+    location /static {
+      # path for static files
+      root /path/to/app/static;
+    }
+  }
+
+  upstream uvicorn {
+    server unix:/tmp/uvicorn.sock;
+  }
+
+}
+</pre></div>
+
+
+<p>Uvicorn's <code>--proxy-headers</code> behavior may not be sufficient for more complex proxy configurations that use different combinations of headers, or where the application is running behind more than one intermediary proxying service.</p>
+<p>In those cases you might want to use an ASGI middleware to set the <code>client</code> and <code>scheme</code> dependant on the request headers.</p>
+<h2 id="running-behind-a-cdn">Running behind a CDN</h2>
+<p>Running behind a content delivery network, such as Cloudflare or Cloud Front, provides a serious layer of protection against DDOS attacks. Your sevice will be running behind huge clusters of proxies and load balancers that are designed for handling huge amounts of traffic, and have capabilities for detecting and closing off connections from DDOS attacks.</p>
+<p>Proper usage of cache control headers can mean that a CDN is able to serve large amounts of data without always having to forward the request on to your server.</p>
+<p>Content Delivery Networks can also be a low-effort way to provide HTTPS termination.</p>
+<h2 id="running-with-https">Running with HTTPS</h2>
+<p>To run uvicorn with https, a certificate and a private key are required.
+The recommended way to get them is using <a href="https://letsencrypt.org/">Let's Encrypt</a>.</p>
+<p>For local development with https, it's possible to use <a href="https://github.com/FiloSottile/mkcert">mkcert</a>
+to generate a valid certificat and private key.</p>
+<div class="codehilite"><pre><span></span>$ uvicorn app:App --port <span class="m">5000</span> --ssl-keyfile<span class="o">=</span>./key.pem --ssl-certfile<span class="o">=</span>./cert.pem
+</pre></div>
+
+
+<h3 id="running-gunicorn-worker">Running gunicorn worker</h3>
+<p>It also possible to use certificates with uvicorn's worker for gunicorn</p>
+<div class="codehilite"><pre><span></span>$ gunicorn --keyfile<span class="o">=</span>./key.pem --certfile<span class="o">=</span>./cert.pem -k uvicorn.workers.UvicornWorker app:App
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../settings/" title="Settings" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Settings
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../server-behavior/" title="Server Behavior" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Server Behavior
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

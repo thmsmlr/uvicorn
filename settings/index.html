@@ -1,0 +1,636 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="The lightning-fast ASGI server.">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Settings - Uvicorn</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.982221ab.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#settings" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Uvicorn" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Uvicorn
+            </span>
+            <span class="md-header-nav__topic">
+              Settings
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/encode/uvicorn" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    encode/uvicorn
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Uvicorn" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Uvicorn
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/encode/uvicorn" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    encode/uvicorn
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Settings
+      </label>
+    
+    <a href="./" title="Settings" class="md-nav__link md-nav__link--active">
+      Settings
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#application" title="Application" class="md-nav__link">
+    Application
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#socket-binding" title="Socket Binding" class="md-nav__link">
+    Socket Binding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" title="Development" class="md-nav__link">
+    Development
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production" title="Production" class="md-nav__link">
+    Production
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" title="Logging" class="md-nav__link">
+    Logging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" title="Implementation" class="md-nav__link">
+    Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-interface" title="Application Interface" class="md-nav__link">
+    Application Interface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" title="HTTP" class="md-nav__link">
+    HTTP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" title="HTTPS" class="md-nav__link">
+    HTTPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-limits" title="Resource Limits" class="md-nav__link">
+    Resource Limits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeouts" title="Timeouts" class="md-nav__link">
+    Timeouts
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../deployment/" title="Deployment" class="md-nav__link">
+      Deployment
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../server-behavior/" title="Server Behavior" class="md-nav__link">
+      Server Behavior
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#application" title="Application" class="md-nav__link">
+    Application
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#socket-binding" title="Socket Binding" class="md-nav__link">
+    Socket Binding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" title="Development" class="md-nav__link">
+    Development
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production" title="Production" class="md-nav__link">
+    Production
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" title="Logging" class="md-nav__link">
+    Logging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" title="Implementation" class="md-nav__link">
+    Implementation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-interface" title="Application Interface" class="md-nav__link">
+    Application Interface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http" title="HTTP" class="md-nav__link">
+    HTTP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" title="HTTPS" class="md-nav__link">
+    HTTPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-limits" title="Resource Limits" class="md-nav__link">
+    Resource Limits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeouts" title="Timeouts" class="md-nav__link">
+    Timeouts
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="settings">Settings</h1>
+<p>Use the following options to configure Uvicorn, when running from the command line.</p>
+<p>If you're running using programmatically, using <code>uvicorn.run(...)</code>, then use
+equivalent keyword arguments, eg. <code>uvicorn.run(App, port=5000, debug=True, access_log=False)</code>.</p>
+<h2 id="application">Application</h2>
+<ul>
+<li><code>APP</code> - The ASGI application to run, in the format <code>"&lt;module&gt;:&lt;attribute&gt;"</code>.</li>
+</ul>
+<h2 id="socket-binding">Socket Binding</h2>
+<ul>
+<li><code>--host &lt;str&gt;</code> - Bind socket to this host. Use <code>--host 0.0.0.0</code> to make the application available on your local network. <strong>Default:</strong> <em>'127.0.0.1'</em>.</li>
+<li><code>--port &lt;int&gt;</code> - Bind to a socket with this port. <strong>Default:</strong> <em>8000</em>.</li>
+<li><code>--uds &lt;str&gt;</code> - Bind to a UNIX domain socket. Useful if you want to run Uvicorn behind a reverse proxy.</li>
+<li><code>--fd &lt;int&gt;</code> - Bind to socket from this file descriptor. Useful if you want to run Uvicorn within a process manager.</li>
+</ul>
+<h2 id="development">Development</h2>
+<ul>
+<li><code>--reload</code> - Enable auto-reload.</li>
+<li><code>--reload-dir &lt;path&gt;</code> - Specify which directories to watch for python file changes. May be used multiple times. If unused, then by default all directories in <code>sys.path</code> will be watched.</li>
+</ul>
+<h2 id="production">Production</h2>
+<ul>
+<li><code>--workers &lt;int&gt;</code> - Use multiple worker processes.</li>
+</ul>
+<h2 id="logging">Logging</h2>
+<ul>
+<li><code>--log-level &lt;str&gt;</code> - Set the log level. <strong>Options:</strong> <em>'critical', 'error', 'warning', 'info', 'debug'.</em> <strong>Default:</strong> <em>'info'</em>.</li>
+<li><code>--no-access-log</code> - Disable access log only, without changing log level.</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li><code>--loop &lt;str&gt;</code> - Set the event loop implementation. The uvloop implementation provides greater performance, but is not compatible with Windows or PyPy. <strong>Options:</strong> <em>'auto', 'asyncio', 'uvloop'.</em> <strong>Default:</strong> <em>'auto'</em>.</li>
+<li><code>--http &lt;str&gt;</code> - Set the HTTP protocol implementation. The httptools implementation provides greater performance, but it not compatible with PyPy, and requires compilation on Windows. <strong>Options:</strong> <em>'auto', 'h11', 'httptools'.</em> <strong>Default:</strong> <em>'auto'</em>.</li>
+<li><code>--ws &lt;str&gt;</code> - Set the WebSockets protocol implementation. Either of the <code>websockets</code> and <code>wsproto</code> packages are supported. Use <code>'none'</code> to deny all websocket requests. <strong>Options:</strong> <em>'auto', 'none', 'websockets', 'wsproto'.</em> <strong>Default:</strong> <em>'auto'</em>.</li>
+<li><code>--lifespan &lt;str&gt;</code> - Set the Lifespan protocol implementation. <strong>Options:</strong> <em>'auto', 'on', 'off'.</em> <strong>Default:</strong> <em>'auto'</em>.</li>
+</ul>
+<h2 id="application-interface">Application Interface</h2>
+<ul>
+<li><code>--wsgi</code> - Use WSGI as the application interface rather than ASGI. Note that WSGI mode always disables WebSocket support, as it is not supported by the WSGI interface.</li>
+</ul>
+<h2 id="http">HTTP</h2>
+<ul>
+<li><code>--root-path &lt;str&gt;</code> - Set the ASGI <code>root_path</code> for applications submounted below a given URL path.</li>
+<li><code>--proxy-headers</code> - Use the X-Forwarded-Proto and X-Forwarded-For headers to populate remote scheme/address info.</li>
+</ul>
+<h2 id="https">HTTPS</h2>
+<ul>
+<li><code>--ssl-keyfile &lt;path&gt;</code> - SSL key file</li>
+<li><code>--ssl-certfile &lt;path&gt;</code> - SSL certificate file</li>
+<li><code>--ssl-version &lt;int&gt;</code> - SSL version to use (see stdlib ssl module's)</li>
+<li><code>--ssl-cert-reqs &lt;int&gt;</code> - Whether client certificate is required (see stdlib ssl module's)</li>
+<li><code>--ssl-ca-certs &lt;str&gt;</code> - CA certificates file</li>
+<li><code>--ssl-ciphers &lt;str&gt;</code> - Ciphers to use (see stdlib ssl module's)</li>
+</ul>
+<h2 id="resource-limits">Resource Limits</h2>
+<ul>
+<li><code>--limit-concurrency &lt;int&gt;</code> - Maximum number of concurrent connections or tasks to allow, before issuing HTTP 503 responses. Useful for ensuring known memory usage patterns even under over-resourced loads.</li>
+<li><code>--limit-max-requests &lt;int&gt;</code> - Maximum number of requests to service before terminating the process. Useful when running together with a process manager, for preventing memory leaks from impacting long-running processes.</li>
+</ul>
+<h2 id="timeouts">Timeouts</h2>
+<ul>
+<li><code>--timeout-keep-alive &lt;int&gt;</code> - Close Keep-Alive connections if no new data is received within this timeout. <strong>Default:</strong> <em>5</em>.</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Introduction
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../deployment/" title="Deployment" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Deployment
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
