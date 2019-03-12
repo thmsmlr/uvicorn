@@ -533,7 +533,9 @@ equivalent keyword arguments, eg. <code>uvicorn.run(App, port=5000, debug=True, 
 </ul>
 <h2 id="application-interface">Application Interface</h2>
 <ul>
-<li><code>--wsgi</code> - Use WSGI as the application interface rather than ASGI. Note that WSGI mode always disables WebSocket support, as it is not supported by the WSGI interface.</li>
+<li><code>--interface</code> - Select ASGI3, ASGI2, or WSGI as the application interface.
+Note that WSGI mode always disables WebSocket support, as it is not supported by the WSGI interface.
+<strong>Options:</strong> <em>'auto', 'asgi3', 'asgi2', 'wsgi'.</em> <strong>Default:</strong> <em>'auto'</em>.</li>
 </ul>
 <h2 id="http">HTTP</h2>
 <ul>
