@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.0">
     
     
       
@@ -47,7 +47,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+      <script src="assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -681,29 +681,25 @@ WebSockets, which cannot be handled by WSGI.</p>
 </pre></div>
 
 
-<p>Create an application, in <code>app.py</code>:</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">scope</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
-
-    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
-            <span class="p">]</span>
-        <span class="p">})</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">,</span>
-        <span class="p">})</span>
+<p>Create an application, in <code>example.py</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">scope</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">})</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;Hello, world!&#39;</span><span class="p">,</span>
+    <span class="p">})</span>
 </pre></div>
 
 
 <p>Run the server:</p>
-<div class="codehilite"><pre><span></span>$ uvicorn app:App
+<div class="codehilite"><pre><span></span>$ uvicorn example:app
 </pre></div>
 
 
@@ -769,11 +765,11 @@ Options:
 <p>To run uvicorn directly from your application...</p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">uvicorn</span>
 
-<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
     <span class="o">...</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">App</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
 </pre></div>
 
 
@@ -785,7 +781,7 @@ fully-featured process management.</p>
 <p>This allows you to increase or decrease the number of worker processes on the
 fly, restart worker processes gracefully, or perform server upgrades without downtime.</p>
 <p>For production deployments we recommend using gunicorn with the uvicorn worker class.</p>
-<div class="codehilite"><pre><span></span>gunicorn app:App -w 4 -k uvicorn.workers.UvicornWorker
+<div class="codehilite"><pre><span></span>gunicorn example:app -w 4 -k uvicorn.workers.UvicornWorker
 </pre></div>
 
 
@@ -793,27 +789,35 @@ fly, restart worker processes gracefully, or perform server upgrades without dow
 <p>For more information, see the <a href="deployment/">deployment documentation</a>.</p>
 <h2 id="the-asgi-interface">The ASGI interface</h2>
 <p>Uvicorn uses the <a href="https://asgi.readthedocs.io/en/latest/">ASGI specification</a> for interacting with an application.</p>
-<p>The application should expose a callable which takes one argument, <code>scope</code>.
-This callable is used to create a new instance of the application for each incoming connection.
-It must return a coroutine which the server can then call into.</p>
-<p>The application instance coroutine takes two arguments, <code>(receive, send)</code>,
-which are the channels by which messages are sent between the web server and client application.</p>
-<p>One style of implementation is to use a class with an <code>__init__()</code> method to handle
-application instantiation, and a <code>__call__()</code> coroutine to provide the application implementation.</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">App</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
-
-    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
-        <span class="o">...</span>
+<p>The application should expose an async callable which takes three arguments:</p>
+<ul>
+<li><code>scope</code> - A dictionary containing information about the incoming connection.</li>
+<li><code>receive</code> - A channel on which to receive incoming messages from the server.</li>
+<li><code>send</code> - A channel on which to send outgoing messages to the server.</li>
+</ul>
+<p>Two common patterns you might use are either function-based applications:</p>
+<div class="codehilite"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">scope</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
+    <span class="o">...</span>
 </pre></div>
 
 
-<p>The content of the <code>scope</code> argument, and the messages expected by <code>receive</code> and <code>send</code> depend on
-the protocol being used.</p>
+<p>Or instance-based applications:</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">scope</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
+        <span class="o">...</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
+</pre></div>
+
+
+<p>It's good practice for applications to raise an exception on scope types
+that they do not handle.</p>
+<p>The content of the <code>scope</code> argument, and the messages expected by <code>receive</code> and <code>send</code> depend on the protocol being used.</p>
 <p>The format for HTTP messages is described in the <a href="https://asgi.readthedocs.io/en/latest/specs/www.html">ASGI HTTP Message format</a>.</p>
 <h3 id="http-scope">HTTP Scope</h3>
-<p>An incoming HTTP request might instantiate an application with the following <code>scope</code>:</p>
+<p>An incoming HTTP request might have a connection <code>scope</code> like this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.request&#39;</span><span class="p">,</span>
     <span class="s1">&#39;scheme&#39;</span><span class="p">:</span> <span class="s1">&#39;http&#39;</span><span class="p">,</span>
@@ -849,98 +853,99 @@ the protocol being used.</p>
 
 <h3 id="requests-responses">Requests &amp; responses</h3>
 <p>Here's an example that displays the method and path used in the incoming request:</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">EchoMethodAndPath</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+<div class="codehilite"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Echo the method and path back in an HTTP response.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">scope</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
 
-    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="s1">&#39;Received </span><span class="si">%s</span><span class="s1"> request to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">scope</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">])</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
-            <span class="p">]</span>
-        <span class="p">})</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">body</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
-        <span class="p">})</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;Received {scope[&#39;</span><span class="n">method</span><span class="s1">&#39;]} request to {scope[&#39;</span><span class="n">path</span><span class="s1">&#39;]}&#39;</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">})</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">body</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+    <span class="p">})</span>
 </pre></div>
 
 
 <h3 id="reading-the-request-body">Reading the request body</h3>
 <p>You can stream the request body without blocking the asyncio task pool,
 by fetching messages from the <code>receive</code> coroutine.</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">EchoBody</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+<div class="codehilite"><pre><span></span><span class="n">async</span> <span class="k">def</span> <span class="nf">read_body</span><span class="p">(</span><span class="n">receive</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read and return the entire body from an incoming ASGI message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+    <span class="n">more_body</span> <span class="o">=</span> <span class="bp">True</span>
 
-    <span class="n">async</span> <span class="k">def</span> <span class="nf">read_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Read and return the entire body from an incoming ASGI message.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
-        <span class="n">more_body</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">while</span> <span class="n">more_body</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">await</span> <span class="n">receive</span><span class="p">()</span>
+        <span class="n">body</span> <span class="o">+=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">more_body</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;more_body&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 
-        <span class="k">while</span> <span class="n">more_body</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">await</span> <span class="n">receive</span><span class="p">()</span>
-            <span class="n">body</span> <span class="o">+=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="n">more_body</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;more_body&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">body</span>
+    <span class="k">return</span> <span class="n">body</span>
 
 
-    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_body</span><span class="p">(</span><span class="n">receive</span><span class="p">)</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
-            <span class="p">]</span>
-        <span class="p">})</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">body</span><span class="p">,</span>
-        <span class="p">})</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Echo the request body back in an HTTP response.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">await</span> <span class="n">read_body</span><span class="p">(</span><span class="n">receive</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">})</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">body</span><span class="p">,</span>
+    <span class="p">})</span>
 </pre></div>
 
 
 <h3 id="streaming-responses">Streaming responses</h3>
 <p>You can stream responses by sending multiple <code>http.response.body</code> messages to
 the <code>send</code> coroutine.</p>
-<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">StreamResponse</span><span class="p">():</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
 
-    <span class="n">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="n">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_body</span><span class="p">(</span><span class="n">receive</span><span class="p">)</span>
-        <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-            <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
-            <span class="p">]</span>
-        <span class="p">})</span>
-        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;world!&#39;</span><span class="p">]</span>
-            <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
-                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">,</span>
-                <span class="s1">&#39;more_body&#39;</span><span class="p">:</span> <span class="bp">True</span>
-            <span class="p">})</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">receive</span><span class="p">,</span> <span class="n">send</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Send a slowly streaming HTTP response back to the client.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.start&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="s1">&#39;headers&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;text/plain&#39;</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">})</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;world!&#39;</span><span class="p">]</span>
         <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
             <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">,</span>
+            <span class="s1">&#39;more_body&#39;</span><span class="p">:</span> <span class="bp">True</span>
         <span class="p">})</span>
+        <span class="n">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">await</span> <span class="n">send</span><span class="p">({</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;http.response.body&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;body&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="p">})</span>
 </pre></div>
 
 
 <hr />
 <h2 id="alternative-asgi-servers">Alternative ASGI servers</h2>
 <h3 id="daphne">Daphne</h3>
-<p>The first ASGI server implementation, originally developed to power Django Channels,
-is <a href="https://github.com/django/daphne">the Daphne webserver</a>.</p>
+<p>The first ASGI server implementation, originally developed to power Django Channels, is <a href="https://github.com/django/daphne">the Daphne webserver</a>.</p>
 <p>It is run widely in production, and supports HTTP/1.1, HTTP/2, and WebSockets.</p>
 <p>Any of the example applications given here can equally well be run using <code>daphne</code> instead.</p>
 <div class="codehilite"><pre><span></span>$ pip install daphne
@@ -1030,7 +1035,7 @@ with application code still running in a standard threaded context.</p>
       
     </div>
     
-      <script src="assets/javascripts/application.d9aa80ab.js"></script>
+      <script src="assets/javascripts/application.2ba8dec4.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
