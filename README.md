@@ -16,6 +16,8 @@
 
 **Requirements**: Python 3.5, 3.6, 3.7
 
+STITCH FIX FORK TO PATCH https://github.com/encode/uvicorn/pull/347
+
 Uvicorn is a lightning-fast ASGI server implementation, using [uvloop][uvloop] and [httptools][httptools].
 
 Until recently Python has lacked a minimal low-level server/application interface for
