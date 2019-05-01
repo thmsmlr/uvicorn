@@ -50,7 +50,7 @@ requirements = [
 
 
 setup(
-    name='uvicorn',
+    name='sf-uvicorn',
     version=get_version('uvicorn'),
     url='https://github.com/encode/uvicorn',
     license='BSD',
